@@ -4,7 +4,8 @@
   "description": "将 Cocos Creator 构建后目录的部分资源进行加密",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ts-node ./src/index.ts"
   },
   "repository": {
     "type": "git",
