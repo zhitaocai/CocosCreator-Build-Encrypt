@@ -1,0 +1,30 @@
+{
+  "name": "cocoscreator-build-encrypt",
+  "version": "0.1.0",
+  "description": "将 Cocos Creator 构建后目录的部分资源进行加密",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhitaocai/CocosCreator-Build-Encrypt.git"
+  },
+  "keywords": [
+    "Cocos",
+    "CocosCreator",
+    "Build",
+    "Encrypt"
+  ],
+  "author": "zhitaocai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhitaocai/CocosCreator-Build-Encrypt/issues"
+  },
+  "homepage": "https://github.com/zhitaocai/CocosCreator-Build-Encrypt#readme",
+  "dependencies": {
+    "@types/node": "^14.0.18",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  }
+}
