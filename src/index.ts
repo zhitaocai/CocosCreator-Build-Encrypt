@@ -70,11 +70,23 @@ export namespace zz {
      * 加入插件脚本
      */
     function cpzzLoader(inputPluginScritFilePath: string, outputPluginScriptFilePath: string) {
+        // 已经加入了的就不处理
         let lockFilePath = outputPluginScriptFilePath + ".lock";
         if (fs.existsSync(lockFilePath)) {
             console.log(`插件脚本已经加入，将不再处理，如果需要重新处理，请删除 ${lockFilePath}`);
             return;
         }
+
+        // 创建目录
+        if (fs.existsSync(outputPluginScriptFilePath)) {
+            if (fs.statSync(outputPluginScriptFilePath).isDirectory()) {
+                fs.rmdirSync(outputPluginScriptFilePath);
+            }
+        } else {
+            fs.mkdirSync(path.dirname(outputPluginScriptFilePath));
+        }
+
+        // 写入文件
         let inputJsFileBuffer: Buffer = fs.readFileSync(inputPluginScritFilePath);
         fs.writeFileSync(outputPluginScriptFilePath, inputJsFileBuffer.toString());
         // 加入处理完的文件标识
