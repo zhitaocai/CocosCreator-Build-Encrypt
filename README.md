@@ -1,13 +1,9 @@
 # CocosCreator-Build-Encrypt
 
 [![](https://img.shields.io/badge/Release-0.1.0-orange.svg)](CHANGELOG.md)
-
-[![](https://img.shields.io/badge/Support%20Cocos%20Creator-2.3.3-orange.svg)](http://www.cocos.com/creator)
-
+[![](https://img.shields.io/badge/Support%20Cocos%20Creator-2.3.3-brightgreen.svg)](http://www.cocos.com/creator)
 [![](https://img.shields.io/badge/Unknown%20Support%20Cocos%20Creator-2.x.x-lightgrey.svg)](http://www.cocos.com/creator)
-
 [![](https://img.shields.io/badge/Not%20Support%20Cocos%20Creator-2.4.+-red.svg)](http://www.cocos.com/creator)
-
 [![](https://img.shields.io/badge/Not%20Support%20Cocos%20Creator-1.x.x-red.svg)](http://www.cocos.com/creator)
 
 
