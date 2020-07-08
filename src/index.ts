@@ -42,7 +42,7 @@ export namespace zz {
 
         pngFilePaths.forEach((filePath: string) => {
             let fileBuffer: Buffer = fs.readFileSync(filePath);
-            let targetFilePath = filePath + ".encrypt";
+            let targetFilePath = filePath + ".txt";
             if (fs.existsSync(targetFilePath)) {
                 console.log(filePath.substring(pngRootDirPath.length + 1), "->", targetFilePath.substring(pngRootDirPath.length + 1), "(Pass)");
             } else {
