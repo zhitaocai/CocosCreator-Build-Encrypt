@@ -1,15 +1,19 @@
 if (CC_JSB) {
-    function downloadText(textUrl) {
-        var result = jsb.fileUtils.getStringFromFile(textUrl);
+    function downloadText(item) {
+        var url = item.url;
+        var result = jsb.fileUtils.getStringFromFile(url);
         if (typeof result === "string" && result) {
             return result;
         } else {
-            return new Error("Download text failed: " + textUrl);
+            return new Error("Download text failed: " + url);
         }
     }
     cc.loader.addDownloadHandlers({
         png: function (item, callback) {
-            let text = downloadText(item.url + ".txt");
+            // 从定向原图片地址 为 加密后的文件
+            item.url = item.url.replace(".png", ".xxpng");
+
+            let text = downloadText(item);
             if (text instanceof Error) {
                 callback(text, null);
             } else {
