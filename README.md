@@ -36,7 +36,7 @@ npm run build buildOutputDirAbsPath
 npm run build /Users/xxx/CocosCreator/HelloWorld/build/jsb-link
 ```
 
-1. 命令构建成功即表示已加密完成，此时可以直接用对应平台的打开方式（Android Studio，XCode等）去执行此项目
+3. 命令构建成功即表示已加密完成，此时可以直接用对应平台的打开方式（Android Studio，XCode等）去执行此项目
 
 
 ## 实现原理
