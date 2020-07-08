@@ -1,7 +1,15 @@
 # CocosCreator-Build-Encrypt
 
-[![](https://img.shields.io/badge/Release-0.1.0-green.svg)](CHANGELOG.md)
-[![](https://img.shields.io/badge/Cocos%20Creator-2.3.3-orange.svg)](http://www.cocos.com/creator)
+[![](https://img.shields.io/badge/Release-0.1.0-orange.svg)](CHANGELOG.md)
+
+[![](https://img.shields.io/badge/Support%20Cocos%20Creator-2.3.3-orange.svg)](http://www.cocos.com/creator)
+
+[![](https://img.shields.io/badge/Unknown%20Support%20Cocos%20Creator-2.x.x-lightgrey.svg)](http://www.cocos.com/creator)
+
+[![](https://img.shields.io/badge/Not%20Support%20Cocos%20Creator-2.4.+-red.svg)](http://www.cocos.com/creator)
+
+[![](https://img.shields.io/badge/Not%20Support%20Cocos%20Creator-1.x.x-red.svg)](http://www.cocos.com/creator)
+
 
 一种 Cocos Creator **无侵入** 资源加密方案。
 
@@ -37,7 +45,6 @@ npm run build /Users/xxx/CocosCreator/HelloWorld/build/jsb-link
 ```
 
 3. 命令构建成功即表示已加密完成，此时可以直接用对应平台的打开方式（Android Studio，XCode等）去执行此项目
-
 
 ## 实现原理
 
