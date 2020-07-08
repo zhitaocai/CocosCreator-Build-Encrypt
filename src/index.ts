@@ -15,6 +15,7 @@ export class CocosBuildEncrypt {
         tasks.forEach((task) => {
             task.handle(taskConfig);
         });
+        console.log("恭喜，处理成功！")
     }
 }
 
