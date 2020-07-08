@@ -21,12 +21,12 @@ npm install -s
 
 ```
 cd CocosCreator-Build-Encrypt
-npm run build buildOutpathPath
+npm run build buildOutputDirAbsPath
 ```
 
 参数说明：
 
-* `buildOutpathPath` : Cocos Creator 构建项目后的输出路径绝对路径。如：/Users/xxx/CocosCreator/HelloWorld/build/jsb-link
+* `buildOutputDirAbsPath` : Cocos Creator 构建项目后的输出路径绝对路径。如：/Users/xxx/CocosCreator/HelloWorld/build/jsb-link
 
 
 示例：
