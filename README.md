@@ -32,17 +32,17 @@
     npm run build buildOutputDirAbsPath
     ```
 
-    * 参数说明：
+    参数说明：
 
-      * `buildOutputDirAbsPath` : Cocos Creator 构建项目后的输出路径绝对路径。如：/Users/xxx/CocosCreator/HelloWorld/build/jsb-link
+    * `buildOutputDirAbsPath` : Cocos Creator 构建项目后的输出路径绝对路径。如：/Users/xxx/CocosCreator/HelloWorld/build/jsb-link
 
 
-    * 示例：
+    示例：
 
-        ```
-        # 对 /Users/xxx/CocosCreator/HelloWorld/build/jsb-link 目录进行资源加密
-        npm run build /Users/xxx/CocosCreator/HelloWorld/build/jsb-link
-        ```
+    ```
+    # 对 /Users/xxx/CocosCreator/HelloWorld/build/jsb-link 目录进行资源加密
+    npm run build /Users/xxx/CocosCreator/HelloWorld/build/jsb-link
+    ```
 
 3. 命令构建成功即表示已加密完成，此时可以直接用对应平台的打开方式（如：Android Studio，XCode 等）去执行此项目
 
@@ -68,7 +68,7 @@
 
 ## 三、项目实现原理
 
-Working on...
+> https://www.jianshu.com/p/05e8ecd89122
 
 ## 四、支持一下作者吧
 
