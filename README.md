@@ -2,10 +2,10 @@
 
 [![](https://img.shields.io/badge/Release-0.1.0-orange.svg)](CHANGELOG.md)
 [![](https://img.shields.io/badge/Support-Cocos%20Creator%202.3.3-brightgreen.svg)](http://www.cocos.com/creator)
+[![](https://img.shields.io/badge/Support-Cocos%20Creator%202.3.4-brightgreen.svg)](http://www.cocos.com/creator)
 [![](https://img.shields.io/badge/Unknown%20Support-Cocos%20Creator%202.x.x-lightgrey.svg)](http://www.cocos.com/creator)
 [![](https://img.shields.io/badge/Not%20Support-Cocos%20Creator%202.4.+-red.svg)](http://www.cocos.com/creator)
 [![](https://img.shields.io/badge/Not%20Support-Cocos%20Creator%201.x.x-red.svg)](http://www.cocos.com/creator)
-
 
 
 一种 Cocos Creator **「无侵入」** **「全资源支持」** **「跨平台」** **「资源处理流」** 方案。
@@ -14,7 +14,6 @@
 > * **「全资源支持」**：此方案可以对 Cocos Creator 支持的**所有资源文件** (如：.txt，.> json, .png, .mp3, .fng, ...)进行加密，并且依旧「无侵入」。
 > * **「跨平台」**：此方案可以针对 Cocos  Creator 支持发布的各个平台进行适配。
 > * **「资源处理流」**：使用此方案，你可以对资源进行加密，体积压缩等处理流。
-
 
 ## 一、使用方式
 
@@ -53,11 +52,11 @@
 
 目前不支持（后续可能会有计划支持）
 
-### Cocos Creator 2.3.3
+### Cocos Creator 2.3.3 & 2.3.4
 
 | 支持的资源 | 原生平台 |
 | ---------- | -------- |
-| png        | Y        |
+| （本地）png        | Y        |
 
 ### Cocos Creator 2.x.x( < 2.3.3)
 
