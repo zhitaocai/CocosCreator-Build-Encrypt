@@ -14,8 +14,18 @@ export class CocosProjectConfig {
     projectName: string | undefined;
 
     fromJson(json: any): CocosProjectConfig {
-        this.engineVersion = json["engine_version"];
-        this.projectName = json["projectName"];
+        this.engineVersion = this._getJson(json, "engineVersion");
+        this.projectName = this._getJson(json, "projectName");
         return this;
+    }
+
+    private _getJson(json: any, key: string) {
+        if (json) {
+            let value = json[key];
+            if (value != null && value != undefined) {
+                return value;
+            }
+        }
+        return undefined;
     }
 }

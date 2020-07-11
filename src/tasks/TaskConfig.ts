@@ -60,7 +60,7 @@ export class TaskConfig {
     /**
      * Cocos 项目配置
      */
-    cocosProject: CocosProjectConfig;
+    cocosProject: CocosProjectConfig | undefined;
 
     constructor(buildOutputDirPath: string) {
         // console.log("当前执行文件所在目录路径", __dirname);
@@ -76,7 +76,10 @@ export class TaskConfig {
         this.buildOutputMainJsFilePath = path.join(this.buildOutputDirPath, "main.js");
         this.buildOutputLoaderPluginJsFilePath = path.join(this.buildOutputDirPath, "src/assets/loaderplugin.js");
         this.inputLoaderPluginJsFilePath = path.join(path.dirname(process.argv[1]), "loaderplugin.js");
-        this.cocosProject = new CocosProjectConfig().fromJson(JSON.parse(fs.readFileSync(this.buildOutputCocosProjectJsonFilePath).toString()));
+
+        if (fs.existsSync(this.buildOutputCocosProjectJsonFilePath)) {
+            this.cocosProject = new CocosProjectConfig().fromJson(JSON.parse(fs.readFileSync(this.buildOutputCocosProjectJsonFilePath).toString()));
+        }
 
         console.log("初始化项目配置");
         console.log(this);
