@@ -8,22 +8,27 @@ if (CC_JSB) {
             return new Error("Download text failed: " + url);
         }
     }
-    cc.loader.addDownloadHandlers({
-        png: function (item, callback) {
-            let text = downloadText(item);
-            if (text instanceof Error) {
-                callback(text, null);
-            } else {
-                let img = new Image();
-                img.src = text;
-                img.onload = function (info) {
-                    callback(null, img);
-                };
 
-                img.onerror = function (event) {
-                    callback(new Error("load image fail:" + img.src), null);
-                }; // Don't return anything to use async loading.
-            }
-        },
+    function downloadImage(item, callback) {
+        let text = downloadText(item);
+        if (text instanceof Error) {
+            callback(text, null);
+        } else {
+            let img = new Image();
+            img.src = text;
+            img.onload = function (info) {
+                callback(null, img);
+            };
+
+            img.onerror = function (event) {
+                callback(new Error("load image fail:" + img.src), null);
+            }; // Don't return anything to use async loading.
+        }
+    }
+
+    cc.loader.addDownloadHandlers({
+        png: downloadImage,
+        jpg: downloadImage,
+        jpeg: downloadImage,
     });
 }
