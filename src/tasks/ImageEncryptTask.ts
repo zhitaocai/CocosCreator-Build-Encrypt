@@ -8,6 +8,7 @@ enum ImageType {
     JPG,
     JPEG,
     GIF,
+    WEBP,
 }
 
 type ImageObject = {
@@ -81,6 +82,11 @@ export class ImageEncryptTask implements TaskInterface {
                             type: ImageType.GIF,
                             filePath: filePath,
                         });
+                    case ".webp":
+                        imgs.push({
+                            type: ImageType.WEBP,
+                            filePath: filePath,
+                        });
                         break;
                 }
             }
@@ -106,6 +112,9 @@ export class ImageEncryptTask implements TaskInterface {
                     break;
                 case ImageType.GIF:
                     imgBase64String += "data:image/gif;base64,";
+                    break;
+                case ImageType.WEBP:
+                    imgBase64String += "data:image/webp;base64,";
                     break;
             }
             imgBase64String += imgBuffer.toString("base64");

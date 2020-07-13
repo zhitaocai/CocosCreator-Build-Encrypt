@@ -60,6 +60,7 @@
 | jpg        | Y        |
 | jpeg       | Y        |
 | gif        | Y        |
+| webp       | Y        |
 
 ### Cocos Creator 2.x.x( < 2.3.3)
 

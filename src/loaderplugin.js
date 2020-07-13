@@ -31,5 +31,6 @@ if (CC_JSB) {
         jpg: downloadImage,
         jpeg: downloadImage,
         gif: downloadImage,
+        webp: downloadImage,
     });
 }
