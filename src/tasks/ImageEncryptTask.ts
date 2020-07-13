@@ -7,6 +7,7 @@ enum ImageType {
     PNG,
     JPG,
     JPEG,
+    GIF,
 }
 
 type ImageObject = {
@@ -75,6 +76,11 @@ export class ImageEncryptTask implements TaskInterface {
                             type: ImageType.JPEG,
                             filePath: filePath,
                         });
+                    case ".gif":
+                        imgs.push({
+                            type: ImageType.GIF,
+                            filePath: filePath,
+                        });
                         break;
                 }
             }
@@ -97,6 +103,9 @@ export class ImageEncryptTask implements TaskInterface {
                     break;
                 case ImageType.JPEG:
                     imgBase64String += "data:image/jpeg;base64,";
+                    break;
+                case ImageType.GIF:
+                    imgBase64String += "data:image/gif;base64,";
                     break;
             }
             imgBase64String += imgBuffer.toString("base64");
