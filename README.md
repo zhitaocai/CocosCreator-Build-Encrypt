@@ -1,6 +1,6 @@
 # CocosCreator-Build-Encrypt
 
-[![](https://img.shields.io/badge/Release-0.1.0-orange.svg)](CHANGELOG.md)
+[![](https://img.shields.io/badge/Release-0.2.0-orange.svg)](CHANGELOG.md)
 [![](https://img.shields.io/badge/Support-Cocos%20Creator%202.3.3-brightgreen.svg)](http://www.cocos.com/creator)
 [![](https://img.shields.io/badge/Support-Cocos%20Creator%202.3.4-brightgreen.svg)](http://www.cocos.com/creator)
 [![](https://img.shields.io/badge/Unknown%20Support-Cocos%20Creator%202.x.x-lightgrey.svg)](http://www.cocos.com/creator)
@@ -57,6 +57,8 @@
 | 支持的资源 | 原生平台 |
 | ---------- | -------- |
 | png        | Y        |
+| jpg        | Y        |
+| jpeg        | Y        |
 
 ### Cocos Creator 2.x.x( < 2.3.3)
 
