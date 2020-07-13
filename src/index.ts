@@ -1,4 +1,4 @@
-import { EncryptTask } from "./tasks/EncryptTask";
+import { ImageEncryptTask } from "./tasks/ImageEncryptTask";
 import { TaskConfig } from "./tasks/TaskConfig";
 import { InjectPluginTask } from "./tasks/InjectPluginTask";
 
@@ -7,7 +7,7 @@ export class CocosBuildEncrypt {
         let taskConfig = new TaskConfig(process.argv[2]);
         let tasks = [
             // 对输出的图片加密
-            new EncryptTask(),
+            new ImageEncryptTask(),
 
             // 注入解密插件脚本
             new InjectPluginTask(),

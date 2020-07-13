@@ -10,17 +10,12 @@ if (CC_JSB) {
     }
     cc.loader.addDownloadHandlers({
         png: function (item, callback) {
-            // 从定向原图片地址 为 加密后的文件
-            item.url = item.url.replace(".png", ".xxpng");
-
             let text = downloadText(item);
             if (text instanceof Error) {
                 callback(text, null);
             } else {
-                // 将图片文件的文本转换为Image;
                 let img = new Image();
-                img.src = "data:image/png;base64," + text;
-
+                img.src = text;
                 img.onload = function (info) {
                     callback(null, img);
                 };
