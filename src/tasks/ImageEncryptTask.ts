@@ -99,6 +99,10 @@ export class ImageEncryptTask implements TaskInterface {
     private _encryptImage(imgs: ImageObject[]) {
         imgs.forEach((imgObj: ImageObject) => {
             let imgBuffer: Buffer = fs.readFileSync(imgObj.filePath);
+            if (imgBuffer.toString().startsWith("data")) {
+                return;
+            }
+
             let imgBase64String: string = "";
             switch (imgObj.type) {
                 case ImageType.PNG:
