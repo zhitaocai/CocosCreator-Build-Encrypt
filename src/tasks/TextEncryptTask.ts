@@ -79,7 +79,5 @@ export class TextEncryptTask implements TaskInterface {
             encodeText += RandomUtil.randomString(10);
             fs.writeFileSync(imgObj.filePath, encodeText);
         });
-
-
     }
 }

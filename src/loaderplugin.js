@@ -127,6 +127,7 @@ if (CC_JSB) {
             result.substring(0, result.length - 10);
         }
         if (typeof result === "string" && result) {
+            // return jsb.reflection.callStaticMethod("x/y/z/zz", "d", "(Ljava/lang/String;)Ljava/lang/String;", result);
             return Base64.decode(result);
         } else {
             return new Error("Download text failed: " + url);
@@ -143,16 +144,16 @@ if (CC_JSB) {
 
         // Text
         txt: downloadSrcText,
-        xml: downloadSrcText,
-        vsh: downloadSrcText,
-        fsh: downloadSrcText,
-        atlas: downloadSrcText,
-        tmx: downloadSrcText,
-        tsx: downloadSrcText,
+        // xml: downloadSrcText,
+        // vsh: downloadSrcText,
+        // fsh: downloadSrcText,
+        // atlas: downloadSrcText,
+        // tmx: downloadSrcText,
+        // tsx: downloadSrcText,
         json: downloadSrcText,
-        ExportJson: downloadSrcText,
-        plist: downloadSrcText,
-        fnt: downloadSrcText,
-        default: downloadSrcText,
+        // ExportJson: downloadSrcText,
+        // plist: downloadSrcText,
+        // fnt: downloadSrcText,
+        // default: downloadSrcText,
     });
 }
