@@ -3,6 +3,7 @@ import path from "path";
 import { TaskConfig } from "./TaskConfig";
 import { TaskInterface } from "./TaskInterface";
 import { RandomUtil } from "../utils/RandomUtil";
+import { toBase64 } from "js-base64";
 
 enum TextType {
     TXT,
@@ -75,7 +76,11 @@ export class TextEncryptTask implements TaskInterface {
     private _encryptText(imgs: TextObject[]) {
         imgs.forEach((imgObj: TextObject) => {
             let buffer: Buffer = fs.readFileSync(imgObj.filePath);
-            let encodeText: string = buffer.toString("base64");
+            // 使用 node 自带的 base64
+            // let encodeText: string = buffer.toString("base64");
+
+            // 使用 js-base64 库，这是为了方便解密的时候，使用同样的库去解密
+            let encodeText = toBase64(buffer.toString());
             encodeText += RandomUtil.randomString(10);
             fs.writeFileSync(imgObj.filePath, encodeText);
         });
