@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { RandomUtil } from "../utils/RandomUtil";
 import { TaskConfig } from "./TaskConfig";
 import { TaskInterface } from "./TaskInterface";
 
@@ -102,7 +103,6 @@ export class ImageEncryptTask implements TaskInterface {
             if (imgBuffer.toString().startsWith("data")) {
                 return;
             }
-
             let imgBase64String: string = "";
             switch (imgObj.type) {
                 case ImageType.PNG:
@@ -122,6 +122,8 @@ export class ImageEncryptTask implements TaskInterface {
                     break;
             }
             imgBase64String += imgBuffer.toString("base64");
+            // 最后加上10位随机数
+            imgBase64String += RandomUtil.randomString(10);
             fs.writeFileSync(imgObj.filePath, imgBase64String);
         });
     }
