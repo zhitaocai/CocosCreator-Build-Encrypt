@@ -62,7 +62,7 @@ export class TaskConfig {
      */
     cocosProject: CocosProjectConfig | undefined;
 
-    constructor(buildOutputDirPath: string) {
+    constructor() {
         // console.log("当前执行文件所在目录路径", __dirname);
         // console.log("当前执行文件绝对路径", __filename);
         console.log("当前执行node命令的目录路径", process.cwd());
@@ -70,7 +70,7 @@ export class TaskConfig {
         console.log("将执行的脚本路径", process.argv[1]);
         console.log("传入参数", process.argv.slice(2));
 
-        this.buildOutputDirPath = path.join(buildOutputDirPath, "");
+        this.buildOutputDirPath = path.join(process.argv[2], "");
         this.buildOutputCocosProjectJsonFilePath = path.join(this.buildOutputDirPath, ".cocos-project.json");
         this.buildOutputResDirPath = path.join(this.buildOutputDirPath, "res");
         this.buildOutputMainJsFilePath = path.join(this.buildOutputDirPath, "main.js");
