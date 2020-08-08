@@ -93,6 +93,9 @@ if (CC_JSB) {
     function downloadText(item) {
         var url = item.url;
         var result = jsb.fileUtils.getStringFromFile(url);
+        if (result) {
+            result.substring(0, result.length - 10);
+        }
         if (typeof result === "string" && result) {
             return result;
         } else {
@@ -120,9 +123,10 @@ if (CC_JSB) {
     function downloadSrcText(item) {
         var url = item.url;
         var result = jsb.fileUtils.getStringFromFile(url);
-
+        if (result) {
+            result.substring(0, result.length - 10);
+        }
         if (typeof result === "string" && result) {
-            // return jsb.reflection.callStaticMethod("x/y/z/zz", "d", "(Ljava/lang/String;)Ljava/lang/String;", result);
             return Base64.decode(result);
         } else {
             return new Error("Download text failed: " + url);

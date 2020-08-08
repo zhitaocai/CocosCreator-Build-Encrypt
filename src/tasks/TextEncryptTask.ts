@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { TaskConfig } from "./TaskConfig";
 import { TaskInterface } from "./TaskInterface";
+import { RandomUtil } from "../utils/RandomUtil";
 
 enum TextType {
     TXT,
@@ -73,9 +74,12 @@ export class TextEncryptTask implements TaskInterface {
      */
     private _encryptText(imgs: TextObject[]) {
         imgs.forEach((imgObj: TextObject) => {
-            let imgBuffer: Buffer = fs.readFileSync(imgObj.filePath);
-            let imgBase64String: string = imgBuffer.toString("base64");
-            fs.writeFileSync(imgObj.filePath, imgBase64String);
+            let buffer: Buffer = fs.readFileSync(imgObj.filePath);
+            let encodeText: string = buffer.toString("base64");
+            encodeText += RandomUtil.randomString(10);
+            fs.writeFileSync(imgObj.filePath, encodeText);
         });
+
+
     }
 }
