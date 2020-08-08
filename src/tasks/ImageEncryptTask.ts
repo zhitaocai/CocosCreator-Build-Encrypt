@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { RandomUtil } from "../utils/RandomUtil";
 import { TaskConfig } from "./TaskConfig";
 import { TaskInterface } from "./TaskInterface";
 
@@ -7,6 +8,8 @@ enum ImageType {
     PNG,
     JPG,
     JPEG,
+    GIF,
+    WEBP,
 }
 
 type ImageObject = {
@@ -75,6 +78,16 @@ export class ImageEncryptTask implements TaskInterface {
                             type: ImageType.JPEG,
                             filePath: filePath,
                         });
+                    case ".gif":
+                        imgs.push({
+                            type: ImageType.GIF,
+                            filePath: filePath,
+                        });
+                    case ".webp":
+                        imgs.push({
+                            type: ImageType.WEBP,
+                            filePath: filePath,
+                        });
                         break;
                 }
             }
@@ -87,6 +100,9 @@ export class ImageEncryptTask implements TaskInterface {
     private _encryptImage(imgs: ImageObject[]) {
         imgs.forEach((imgObj: ImageObject) => {
             let imgBuffer: Buffer = fs.readFileSync(imgObj.filePath);
+            if (imgBuffer.toString().startsWith("data")) {
+                return;
+            }
             let imgBase64String: string = "";
             switch (imgObj.type) {
                 case ImageType.PNG:
@@ -98,8 +114,16 @@ export class ImageEncryptTask implements TaskInterface {
                 case ImageType.JPEG:
                     imgBase64String += "data:image/jpeg;base64,";
                     break;
+                case ImageType.GIF:
+                    imgBase64String += "data:image/gif;base64,";
+                    break;
+                case ImageType.WEBP:
+                    imgBase64String += "data:image/webp;base64,";
+                    break;
             }
             imgBase64String += imgBuffer.toString("base64");
+            // 最后加上10位随机数
+            imgBase64String += RandomUtil.randomString(10);
             fs.writeFileSync(imgObj.filePath, imgBase64String);
         });
     }
