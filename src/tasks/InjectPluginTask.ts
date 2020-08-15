@@ -59,6 +59,7 @@ export class InjectPluginTask implements TaskInterface {
     if (jsList == null) {
         jsList = [];
     }
+    jsList.unshift("${loaderpluginRelativePath}");
 `;
         //         let aopCodeBlock = `
         //     var jsList = settings.jsList;
