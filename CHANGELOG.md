@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.3.1
+
+* Cocos Creator 2.3.3
+  * 原生平台
+    * 修复加载远程图片时，可能不正确的问题
+    * 修复windows上注入插件到main.js时可能不正确的问题
+
 ## 0.3.0 
 
 * Cocos Creator 2.3.3
