@@ -56,18 +56,24 @@ export class InjectPluginTask implements TaskInterface {
         let fileChunks = fileContentText.split("var jsList = settings.jsList;");
         let aopCodeBlock = `
     var jsList = settings.jsList;
-
-    //////////////////////////////////////////
-    // 插入代码：开始
-
     if (jsList == null) {
         jsList = [];
     }
-    jsList.unshift("${loaderpluginRelativePath}");
-    
-    // 插入代码：结束
-    //////////////////////////////////////////
 `;
+        //         let aopCodeBlock = `
+        //     var jsList = settings.jsList;
+
+        //     //////////////////////////////////////////
+        //     // 插入代码：开始
+
+        //     if (jsList == null) {
+        //         jsList = [];
+        //     }
+        //     jsList.unshift("${loaderpluginRelativePath}");
+
+        //     // 插入代码：结束
+        //     //////////////////////////////////////////
+        // `;
         let newMainJsFileContent = fileChunks.join(aopCodeBlock);
         fs.writeFileSync(taskConfig.buildOutputMainJsFilePath, newMainJsFileContent);
         console.log(`插件脚本注入：注入 main.js 成功`);
