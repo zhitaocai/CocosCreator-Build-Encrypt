@@ -254,6 +254,7 @@
 });
 
 if (CC_JSB) {
+   
     function downloadText(item) {
         var url = item.url;
         var result = jsb.fileUtils.getStringFromFile(url);
@@ -267,20 +268,37 @@ if (CC_JSB) {
         }
     }
 
-    function downloadImage(item, callback) {
-        let text = downloadText(item);
-        if (text instanceof Error) {
-            callback(text, null);
-        } else {
-            let img = new Image();
-            img.src = text;
-            img.onload = function (info) {
-                callback(null, img);
-            };
+     /**
+     * 加载图片
+     *
+     * @param {string}  data 可以是图片地址，也开始是图片的Base64编码
+     * @param {Function} callback  回调函数
+     */
+    function loadImage(data, callback) {
+        let img = new Image();
+        img.src = data;
+        img.onload = function (info) {
+            callback(null, img);
+        };
 
-            img.onerror = function (event) {
-                callback(new Error("load image fail:" + img.src), null);
-            }; // Don't return anything to use async loading.
+        img.onerror = function (event) {
+            callback(new Error("load image fail:" + img.src), null);
+        }; // Don't return anything to use async loading.
+    }
+    
+
+    function downloadImage(item, callback) {
+        if (item.url.startsWith("http")) {
+            // 来自网络的图片，直接加载
+            loadImage(item.url, callback);
+        } else {
+            // 本地图片，先读取Base64，然后将Base64给Image加载出原图
+            let text = downloadText(item);
+            if (text instanceof Error) {
+                callback(text, null);
+            } else {
+                loadImage(text, callback);
+            }
         }
     }
 
