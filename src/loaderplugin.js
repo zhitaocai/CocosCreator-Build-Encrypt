@@ -400,17 +400,17 @@ if (CC_JSB) {
     }
 
     function downloadEncryptImage(url, options, onComplete) {
-        if (url.startsWith("http")) {
-            // 来自网络的图片，直接加载
-            downloadDomImage(url, options, onComplete);
-        } else {
-            // 本地图片，先读取Base64，然后将Base64给Image加载出原图
+        if (url.startsWith("assets")) {
+            // 内置 assets 图片，先读取Base64，然后将Base64给Image加载出原图
             let text = downloadEncryptText(url, options, onComplete);
             if (text instanceof Error) {
                 onComplete && onComplete(new Error(cc.debug.getError(4930, url)));
             } else {
                 downloadDomImage(text, options, onComplete);
             }
+        } else {
+            // 非内置 assets 图片直接加载
+            downloadDomImage(url, options, onComplete);
         }
     }
 
