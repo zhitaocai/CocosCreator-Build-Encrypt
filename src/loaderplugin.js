@@ -253,10 +253,141 @@
     return gBase64;
 });
 
+// if (CC_JSB) {
+//     function downloadText(item) {
+//         var url = item.url;
+//         var result = jsb.fileUtils.getStringFromFile(url);
+//         if (result) {
+//             result.substring(0, result.length - 10);
+//         }
+//         if (typeof result === "string" && result) {
+//             return result;
+//         } else {
+//             return new Error("Download text failed: " + url);
+//         }
+//     }
+
+//     /**
+//      * 加载图片
+//      *
+//      * @param {string}  data 可以是图片地址，也开始是图片的Base64编码
+//      * @param {Function} callback  回调函数
+//      */
+//     function loadImage(data, callback) {
+//         let img = new Image();
+//         img.src = data;
+//         img.onload = function (info) {
+//             callback(null, img);
+//         };
+
+//         img.onerror = function (event) {
+//             callback(new Error("load image fail:" + img.src), null);
+//         }; // Don't return anything to use async loading.
+//     }
+
+//     function downloadImage(item, callback) {
+//         if (item.url.startsWith("http")) {
+//             // 来自网络的图片，直接加载
+//             loadImage(item.url, callback);
+//         } else {
+//             // 本地图片，先读取Base64，然后将Base64给Image加载出原图
+//             let text = downloadText(item);
+//             if (text instanceof Error) {
+//                 callback(text, null);
+//             } else {
+//                 loadImage(text, callback);
+//             }
+//         }
+//     }
+
+//     function downloadSrcText(item) {
+//         var url = item.url;
+//         var result = jsb.fileUtils.getStringFromFile(url);
+//         if (result) {
+//             result = result.substring(0, result.length - 10);
+//         }
+//         if (typeof result === "string" && result) {
+//             return Base64.decode(result);
+//         } else {
+//             return new Error("Download text failed: " + url);
+//         }
+//     }
+
+//     cc.loader.addDownloadHandlers({
+//         // Image
+//         png: downloadImage,
+//         jpg: downloadImage,
+//         jpeg: downloadImage,
+//         gif: downloadImage,
+//         webp: downloadImage,
+
+//         // Text
+//         txt: downloadSrcText,
+//         // xml: downloadSrcText,
+//         // vsh: downloadSrcText,
+//         // fsh: downloadSrcText,
+//         // atlas: downloadSrcText,
+//         // tmx: downloadSrcText,
+//         // tsx: downloadSrcText,
+//         json: downloadSrcText,
+//         // ExportJson: downloadSrcText,
+//         // plist: downloadSrcText,
+//         // fnt: downloadSrcText,
+//         // default: downloadSrcText,
+//     });
+// }
+
 if (CC_JSB) {
-   
-    function downloadText(item) {
-        var url = item.url;
+    function parseParameters(options, onProgress, onComplete) {
+        if (onComplete === undefined) {
+            var isCallback = typeof options === "function";
+            if (onProgress) {
+                onComplete = onProgress;
+                if (!isCallback) {
+                    onProgress = null;
+                }
+            } else if (onProgress === undefined && isCallback) {
+                onComplete = options;
+                options = null;
+                onProgress = null;
+            }
+            if (onProgress !== undefined && isCallback) {
+                onProgress = options;
+                options = null;
+            }
+        }
+        options = options || Object.create(null);
+        return { options, onProgress, onComplete };
+    }
+
+    function downloadDomImage(url, options, onComplete) {
+        var { options, onComplete } = parseParameters(options, undefined, onComplete);
+
+        var img = new Image();
+
+        if (window.location.protocol !== "file:") {
+            img.crossOrigin = "anonymous";
+        }
+
+        function loadCallback() {
+            img.removeEventListener("load", loadCallback);
+            img.removeEventListener("error", errorCallback);
+            onComplete && onComplete(null, img);
+        }
+
+        function errorCallback() {
+            img.removeEventListener("load", loadCallback);
+            img.removeEventListener("error", errorCallback);
+            onComplete && onComplete(new Error(cc.debug.getError(4930, url)));
+        }
+
+        img.addEventListener("load", loadCallback);
+        img.addEventListener("error", errorCallback);
+        img.src = url;
+        return img;
+    }
+
+    function downloadEncryptText(url, options, onComplete) {
         var result = jsb.fileUtils.getStringFromFile(url);
         if (result) {
             result.substring(0, result.length - 10);
@@ -268,73 +399,34 @@ if (CC_JSB) {
         }
     }
 
-     /**
-     * 加载图片
-     *
-     * @param {string}  data 可以是图片地址，也开始是图片的Base64编码
-     * @param {Function} callback  回调函数
-     */
-    function loadImage(data, callback) {
-        let img = new Image();
-        img.src = data;
-        img.onload = function (info) {
-            callback(null, img);
-        };
-
-        img.onerror = function (event) {
-            callback(new Error("load image fail:" + img.src), null);
-        }; // Don't return anything to use async loading.
-    }
-    
-
-    function downloadImage(item, callback) {
-        if (item.url.startsWith("http")) {
+    function downloadEncryptImage(url, options, onComplete) {
+        if (url.startsWith("http")) {
             // 来自网络的图片，直接加载
-            loadImage(item.url, callback);
+            downloadDomImage(url, options, onComplete);
         } else {
             // 本地图片，先读取Base64，然后将Base64给Image加载出原图
-            let text = downloadText(item);
+            let text = downloadEncryptText(url, options, onComplete);
             if (text instanceof Error) {
-                callback(text, null);
+                onComplete && onComplete(new Error(cc.debug.getError(4930, url)));
             } else {
-                loadImage(text, callback);
+                downloadDomImage(text, options, onComplete);
             }
         }
     }
 
-    function downloadSrcText(item) {
-        var url = item.url;
-        var result = jsb.fileUtils.getStringFromFile(url);
-        if (result) {
-            result = result.substring(0, result.length - 10);
-        }
-        if (typeof result === "string" && result) {
-            return Base64.decode(result);
-        } else {
-            return new Error("Download text failed: " + url);
-        }
-    }
-
-    cc.loader.addDownloadHandlers({
-        // Image
-        png: downloadImage,
-        jpg: downloadImage,
-        jpeg: downloadImage,
-        gif: downloadImage,
-        webp: downloadImage,
-
-        // Text
-        txt: downloadSrcText,
-        // xml: downloadSrcText,
-        // vsh: downloadSrcText,
-        // fsh: downloadSrcText,
-        // atlas: downloadSrcText,
-        // tmx: downloadSrcText,
-        // tsx: downloadSrcText,
-        json: downloadSrcText,
-        // ExportJson: downloadSrcText,
-        // plist: downloadSrcText,
-        // fnt: downloadSrcText,
-        // default: downloadSrcText,
+    cc.assetManager.parser.register({
+        // Images
+        ".png": downloadEncryptImage,
+        ".jpg": downloadEncryptImage,
+        // ".bmp": downloadEncryptImage,
+        ".jpeg": downloadEncryptImage,
+        ".gif": downloadEncryptImage,
+        // ".ico": downloadEncryptImage,
+        // ".tiff": downloadEncryptImage,
+        ".webp": downloadEncryptImage,
+        // ".image": downloadEncryptImage,
+        // // compressed texture
+        // ".pvr": downloadEncryptImage,
+        // ".pkm": downloadEncryptImage,
     });
 }

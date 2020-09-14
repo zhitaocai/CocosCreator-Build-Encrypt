@@ -10,8 +10,8 @@ export class CocosBuildEncrypt {
             // 对输出的图片加密
             new ImageEncryptTask(),
 
-            // 对出输出文本加密
-            new TextEncryptTask(),
+            // // 对出输出文本加密
+            // new TextEncryptTask(),
 
             // 注入解密插件脚本
             new InjectPluginTask(),

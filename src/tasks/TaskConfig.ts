@@ -72,9 +72,9 @@ export class TaskConfig {
 
         this.buildOutputDirPath = path.join(process.argv[2], "");
         this.buildOutputCocosProjectJsonFilePath = path.join(this.buildOutputDirPath, ".cocos-project.json");
-        this.buildOutputResDirPath = path.join(this.buildOutputDirPath, "res");
+        this.buildOutputResDirPath = path.join(this.buildOutputDirPath, "assets/resources/native");
         this.buildOutputMainJsFilePath = path.join(this.buildOutputDirPath, "main.js");
-        this.buildOutputLoaderPluginJsFilePath = path.join(this.buildOutputDirPath, "src/assets/loaderplugin.js");
+        this.buildOutputLoaderPluginJsFilePath = path.join(this.buildOutputDirPath, "jsb-adapter/loaderplugin.js");
         this.inputLoaderPluginJsFilePath = path.join(path.dirname(process.argv[1]), "loaderplugin.js");
 
         if (fs.existsSync(this.buildOutputCocosProjectJsonFilePath)) {

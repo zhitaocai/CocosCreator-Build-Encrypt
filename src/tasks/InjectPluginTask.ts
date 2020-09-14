@@ -16,15 +16,16 @@ export class InjectPluginTask implements TaskInterface {
      * 复制（解密）插件脚本到打包目录
      */
     private _cpLoaderPlugin(taskConfig: TaskConfig) {
-        // 创建插件目录
-        if (fs.existsSync(taskConfig.buildOutputLoaderPluginJsFilePath)) {
-            if (fs.statSync(taskConfig.buildOutputLoaderPluginJsFilePath).isFile()) {
-                console.log(`插件脚本注入：删除已存在文件 ${taskConfig.buildOutputLoaderPluginJsFilePath}`);
-                fs.unlinkSync(taskConfig.buildOutputLoaderPluginJsFilePath);
+        // 创建插件父目录
+        let parentDirName = path.dirname(taskConfig.buildOutputLoaderPluginJsFilePath);
+        if (fs.existsSync(parentDirName)) {
+            if (fs.statSync(parentDirName).isFile()) {
+                console.log(`插件脚本注入：删除已存在文件 ${parentDirName}`);
+                fs.unlinkSync(parentDirName);
             }
         } else {
-            fs.mkdirSync(path.dirname(taskConfig.buildOutputLoaderPluginJsFilePath));
-            console.log(`插件脚本注入：创建目录成功`);
+            fs.mkdirSync(parentDirName);
+            console.log(`插件脚本注入：创建父目录成功`);
         }
 
         // 写入文件
@@ -38,44 +39,20 @@ export class InjectPluginTask implements TaskInterface {
      * 在构建后的 main.js 加入插脚脚本的调用代码
      */
     private _addLoaderPluginToMainJs(taskConfig: TaskConfig) {
-        // 插件代码相对于构建src目录的相对路径
-        // e.g. assets/loaderplugin.js
-        let loaderpluginRelativePath = path.join(
-            path.basename(path.dirname(taskConfig.buildOutputLoaderPluginJsFilePath)),
-            path.basename(taskConfig.buildOutputLoaderPluginJsFilePath)
-        );
-
+        // 需要注入的代码
+        let apoCodeBlock = `require('jsb-adapter/loaderplugin.js');`;
         let fileBuffer: Buffer = fs.readFileSync(taskConfig.buildOutputMainJsFilePath);
         let fileContentText = fileBuffer.toString();
-        if (fileContentText.match(loaderpluginRelativePath)) {
+
+        // 检查是否已经注入过
+        if (fileContentText.match(apoCodeBlock)) {
             console.log(`插件脚本注入：已注入到 main.js，将不再处理`);
             return;
         }
 
         // 注入插件到 main.js
-        let fileChunks = fileContentText.split("var jsList = settings.jsList;");
-        let aopCodeBlock = `
-    var jsList = settings.jsList;
-    if (jsList == null) {
-        jsList = [];
-    }
-    jsList.unshift("${loaderpluginRelativePath}");
-`;
-        //         let aopCodeBlock = `
-        //     var jsList = settings.jsList;
-
-        //     //////////////////////////////////////////
-        //     // 插入代码：开始
-
-        //     if (jsList == null) {
-        //         jsList = [];
-        //     }
-        //     jsList.unshift("${loaderpluginRelativePath}");
-
-        //     // 插入代码：结束
-        //     //////////////////////////////////////////
-        // `;
-        let newMainJsFileContent = fileChunks.join(aopCodeBlock);
+        let fileChunks = fileContentText.split(`window.boot();`);
+        let newMainJsFileContent = fileChunks.join(apoCodeBlock + "\nwindow.boot();");
         fs.writeFileSync(taskConfig.buildOutputMainJsFilePath, newMainJsFileContent);
         console.log(`插件脚本注入：注入 main.js 成功`);
     }
