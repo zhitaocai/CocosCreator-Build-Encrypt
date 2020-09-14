@@ -26,9 +26,9 @@ export class TaskConfig {
      *
      * e.g.
      *
-     * /Users/xxx/CocosCreator/CocosGame/build/jsb-link/res
+     * /Users/xxx/CocosCreator/CocosGame/build/jsb-link/assets
      */
-    buildOutputResDirPath: string;
+    buildOutputAssetsDirPath: string;
 
     /**
      * 构建输出目录的 main.js
@@ -72,7 +72,7 @@ export class TaskConfig {
 
         this.buildOutputDirPath = path.join(process.argv[2], "");
         this.buildOutputCocosProjectJsonFilePath = path.join(this.buildOutputDirPath, ".cocos-project.json");
-        this.buildOutputResDirPath = path.join(this.buildOutputDirPath, "assets/resources/native");
+        this.buildOutputAssetsDirPath = path.join(this.buildOutputDirPath, "assets");
         this.buildOutputMainJsFilePath = path.join(this.buildOutputDirPath, "main.js");
         this.buildOutputLoaderPluginJsFilePath = path.join(this.buildOutputDirPath, "jsb-adapter/loaderplugin.js");
         this.inputLoaderPluginJsFilePath = path.join(path.dirname(process.argv[1]), "loaderplugin.js");

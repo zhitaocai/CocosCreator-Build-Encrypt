@@ -26,7 +26,7 @@ export class TextEncryptTask implements TaskInterface {
     handle(taskConfig: TaskConfig): void {
         // 收集输出目录的文本文件
         let texts: TextObject[] = [];
-        this._collectTextFilePaths(taskConfig.buildOutputResDirPath, texts);
+        this._collectTextFilePaths(taskConfig.buildOutputAssetsDirPath, texts);
         console.log(`文本处理：找到 ${texts.length} 个文本文件`);
 
         // 加密文本文件

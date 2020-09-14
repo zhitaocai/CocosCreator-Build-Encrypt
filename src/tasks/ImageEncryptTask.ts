@@ -33,7 +33,7 @@ export class ImageEncryptTask implements TaskInterface {
     handle(taskConfig: TaskConfig): void {
         // 收集输出目录图片文件
         let imgs: ImageObject[] = [];
-        this._collectImageFilePaths(taskConfig.buildOutputResDirPath, imgs);
+        this._collectImageFilePaths(taskConfig.buildOutputAssetsDirPath, imgs);
         console.log(`图片处理：找到 ${imgs.length} 张原始图片`);
 
         // 加密图片文件
